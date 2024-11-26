@@ -19,6 +19,16 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+
+    // Spring for Apache Kafka
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    // JSON 직렬화/역직렬화를 위한 Jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // 테스트 의존성 (Kafka 관련 테스트)
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
