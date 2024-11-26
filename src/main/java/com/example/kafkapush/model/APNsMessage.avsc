@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "APNsMessage",
+  "namespace": "com.example.push",
+  "fields": [
+    { "name": "targetToken", "type": "string" },
+    { "name": "title", "type": "string" },
+    { "name": "body", "type": "string" },
+    { "name": "badge", "type": ["null", "int"], "default": null },
+    { "name": "sound", "type": ["null", "string"], "default": null }
+  ]
+}
