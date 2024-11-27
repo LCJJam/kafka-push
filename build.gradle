@@ -21,19 +21,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
 
     // Spring Kafka
-    implementation 'org.springframework.kafka:spring-kafka:3.0.12'
+    implementation 'org.springframework.kafka:spring-kafka:3.3.0'
+
+    // Apache Kafka Clients
+    implementation 'org.apache.kafka:kafka-clients:3.9.0'
 
     // Apache Avro
     implementation 'org.apache.avro:avro:1.12.0'
-
-    // Apache Kafka Clients
-    implementation 'org.apache.kafka:kafka-clients:3.7.1'
 
     // Jackson (JSON 직렬화/역직렬화)
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
     // OkHttp (HTTP/2 클라이언트)
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
     // 테스트 의존성 (Kafka 관련 테스트)
     testImplementation 'org.springframework.kafka:spring-kafka-test'

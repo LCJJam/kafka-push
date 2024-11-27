@@ -6,11 +6,11 @@ spring:
     consumer:
       group-id: push-worker-group
       auto-offset-reset: earliest
-      properties:
+    properties:
 #        schema.registry.url: http://localhost:8081
-        schema.registry.url: http://192.168.0.230:8080/ui/artifacts
-        key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      schema.registry.url: http://192.168.0.230:8080/ui/artifacts
+      key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
     listener:
       missing-topics-fatal: false # Topic? ???? ?????? ?? ??
 
