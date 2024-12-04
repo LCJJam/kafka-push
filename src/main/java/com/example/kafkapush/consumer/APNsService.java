@@ -1,4 +1,4 @@
-package com.example.kafkapush.service;
+package com.example.kafkapush.consumer;
 
 import org.apache.avro.generic.GenericRecord;
 import org.springframework.beans.factory.annotation.Value;

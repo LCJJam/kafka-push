@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "PushNotification",
+  "namespace": "com.example.kafkapush",
+  "connect.name": "com.example.kafkapush.PushNotification",
+  "fields": [
+    { "name": "id","type": "string"},
+    { "name": "platform",
+      "type": {
+        "type": "enum",
+        "name": "Platform",
+        "symbols": ["FCM", "APNS"]
+      }
+    },
+    { "name": "deviceToken", "type": "string"},
+    { "name": "title", "type": "string"},
+    { "name": "body", "type": "string"},
+    { "name": "data", "type": ["null", "string"], "default": null },
+    { "name": "badge", "type": ["null", "int"], "default": null },
+    { "name": "sound", "type": ["null", "string"], "default": null }
+  ]
+}

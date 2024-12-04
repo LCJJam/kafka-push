@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Push Notification Producer</title>
+</head>
+<body>
+<h1>Send Push Notification</h1>
+<form id="notificationForm">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required><br><br>
+
+    <label for="platform">Platform:</label>
+    <select id="platform" name="platform" required>
+        <option value="FCM">FCM</option>
+        <option value="APNS">APNS</option>
+    </select><br><br>
+
+    <label for="deviceToken">Device Token:</label>
+    <input type="text" id="deviceToken" name="deviceToken" required><br><br>
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="body">Body:</label>
+    <input type="text" id="body" name="body" required><br><br>
+
+    <label for="data">Data:</label>
+    <input type="text" id="data" name="data"><br><br>
+
+    <label for="badge">Badge:</label>
+    <input type="number" id="badge" name="badge"><br><br>
+
+    <label for="sound">Sound:</label>
+    <input type="text" id="sound" name="sound"><br><br>
+
+    <button type="submit">Send Notification</button>
+</form>
+
+<script>
+    document.getElementById("notificationForm").onsubmit = async function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData);
+
+        const response = await fetch("/api/notifications", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        alert(await response.text());
+    };
+</script>
+</body>
+</html>

@@ -3,21 +3,44 @@ spring:
     name: kafka-push
   kafka:
     bootstrap-servers: http://192.168.0.230:9093
-    consumer:
-      group-id: push-worker-group
-      auto-offset-reset: earliest
+    topic:
+      push-notifications: push-notifications
+
     properties:
-#        schema.registry.url: http://localhost:8081
-      schema.registry.url: http://192.168.0.230:8080/ui/artifacts
-      key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-    listener:
-      missing-topics-fatal: false # Topic? ???? ?????? ?? ??
+      apicurio:
+        registry:
+          auto-register.artifact: false
+          url: http://192.168.0.230:8080/apis/registry/v2
+          artifact:
+            group-id: push-notification-worker
+            artifact-id: push-notifications
+          cache.expiration-time: 0
+          find-latest: true
+          use-specific-avro-reader: true
+
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.apicurio.registry.serde.avro.AvroKafkaDeserializer
+      group-id: push-notification-worker
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.apicurio.registry.serde.avro.AvroKafkaSerializer
 
 push:
   fcm:
-    url: https://fcm.googleapis.com/v1/projects/YOUR_PROJECT_ID/messages:send
-    server-key: YOUR_FCM_SERVER_KEY
+    url: https://fcm.googleapis.com/v1/projects/<project-id>/messages:send
+    account-json: firebase-service-account.json
   apns:
     url: https://api.push.apple.com
     auth-token: YOUR_APNS_AUTH_TOKEN
+
+
+logging:
+  level:
+    io:
+      apicurio:
+        registry: DEBUG

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.0'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.github.davidmc24.gradle.plugin.avro' version '1.9.1'
 }
 
 group = 'com.example'
@@ -19,6 +20,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // Spring Kafka
     implementation 'org.springframework.kafka:spring-kafka:3.3.0'
@@ -29,20 +31,35 @@ dependencies {
     // Apache Avro
     implementation 'org.apache.avro:avro:1.12.0'
 
+    implementation 'io.apicurio:apicurio-registry-serdes-avro-serde:2.6.5.Final'
+
     // Jackson (JSON 직렬화/역직렬화)
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
 
     // OkHttp (HTTP/2 클라이언트)
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.15.0'
+
+    implementation 'org.json:json:20240205'
+
     // 테스트 의존성 (Kafka 관련 테스트)
     testImplementation 'org.springframework.kafka:spring-kafka-test'
-
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+generateAvroJava {
+    source("src/main/resources/avro")
+    include("**/*.avsc")
+    outputDir = file("build/generated/avro-java")
+}
+
+avro {
+    fieldVisibility = "PRIVATE"
+    outputCharacterEncoding = "UTF-8"
 }

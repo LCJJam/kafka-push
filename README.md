@@ -2,15 +2,17 @@
 
 ## 아키텍처
 
+![img](img/architecture.png)
+
 Kafka를 중심으로 메시지 발송을 생산자(Producer), 컨슈머(Consumer), 발송 엔진으로 나누어 처리합니다. 주요 구성 요소는 다음과 같습니다.
 
 구성 요소
 
-1. API 서버:
+1. API 서버: (For testing Producer)
 > 푸시 발송 요청을 클라이언트(App/관리자 웹)로부터 수신.
 > Kafka에 메시지를 발행(Producer 역할).
 
-2. Kafka:
+2. Kafka: **기존서버** 
 > 푸시 발송 요청 메시지를 저장하고, Consumer로 전달.  
 > 토픽을 활용해 메시지를 논리적으로 분리.
 
@@ -18,10 +20,10 @@ Kafka를 중심으로 메시지 발송을 생산자(Producer), 컨슈머(Consume
 > Kafka의 메시지를 수신하여 FCM/APNs로 푸시 발송 요청. 
 > 실패 메시지 재처리 로직 포함.
 
-4. FCM / APNs:
+4. FCM / ~~APNs~~(to-do) :
 > 실제 디바이스로 메시지를 발송.
 
-5. 모니터링 및 로깅:
+5. ~~모니터링 및 로깅:~~ (to-do)
 > 발송 상태, 실패 이유를 추적.
 > Prometheus와 Grafana로 실시간 대시보드 제공.
 
@@ -29,17 +31,14 @@ Kafka를 중심으로 메시지 발송을 생산자(Producer), 컨슈머(Consume
 
 ```json
 {
-  "userId": "12345",
+  "id": "12345",
+  "platform": "FCM",
   "deviceToken": "abcde12345",
-  
-  "platform": "android",
   "title": "할인 안내",
   "body": "오늘만 20% 할인!",
-  "imageUrl": "https://example.com/promo.jpg",
-  "actionUrl": "https://example.com/coupon",
-  "priority": "high",
-  "ttl": 3600,
-  "scheduleTime": "2024-11-26T10:00:00Z"
+  "data": "additional data",
+  "badge": 1,
+  "sound": "high"
 }
 ```
 
